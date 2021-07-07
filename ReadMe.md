@@ -1,0 +1,44 @@
+# Test: Analytics Dashboard #
+
+## Python/Django Installation & Set-up ##
+
+```
+virtualenv .env
+```
+```
+source .env/bin/activate
+```
+
+or
+```
+py -m venv env
+```
+```
+env\Scripts\activate
+```
+
+then
+```
+pip install -r requirements.txt
+```
+```
+python manage.py migrate
+```
+```
+python manage.py createsuperuser
+```
+```
+python manage.py runserver
+```
+
+## Other Things To Consider ##
+
+### Credentials for Hosted Website ###
+
+* username: home
+* password: djangoapp
+
+### Who do I talk to? ###
+
+* Repo owner or admin
+* Other community or team contact
