@@ -158,9 +158,9 @@ WAGTAIL_SITE_NAME = "prj_ga_chartjs"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 # BASE_URL = 'http://example.com'
 
-GOOGLE_ANALYTICS_PROPERTY_ID = 'G-code'
-GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'G-code'
-GOOGLE_ANALYTICS_JS_PROPERTY_ID = 'G-code'
+GOOGLE_ANALYTICS_PROPERTY_ID = 'G-NBNPKHHRL2'
+GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'G-NBNPKHHRL2'
+GOOGLE_ANALYTICS_JS_PROPERTY_ID = 'G-NBNPKHHRL2'
 
 django_heroku.settings(locals())
 
