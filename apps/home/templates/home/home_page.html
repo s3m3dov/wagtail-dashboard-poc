@@ -37,7 +37,7 @@
                         <a class="nav-link page-scroll" href="#blog">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link page-scroll d-flex flex-row align-items-center text-primary" href="#">
+                        <a class="nav-link page-scroll d-flex flex-row align-items-center text-primary" href="{% url 'search' %}">
                             <em data-feather="layout" width="18" height="18" class="mr-2"></em>
                             CTA
                         </a>
@@ -55,10 +55,10 @@
             <div class="col-md-8 col-sm-10 col-12 mx-auto my-auto text-center">
                 <h1 class="heading-black text-capitalize">That is Testing!</h1>
                 <p class="lead py-3">We are testing something</p>
-                <button class="btn btn-primary d-inline-flex flex-row align-items-center">
+                <a  class="btn btn-primary d-inline-flex flex-row align-items-center" href="{% url 'search' %}">
                     Get started now
                     <em class="ml-2" data-feather="arrow-right"></em>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -124,15 +124,15 @@
             <div class="col-md-6 mr-auto">
                 <h2>Knight is more than just a page builder.</h2>
                 <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis pulvinar vestibulum. Donec eleifend, sem sed dictum mattis, turpis purus placerat eros.</p>
-                <a href="#" class="btn btn-light">
+                <a href="{% url 'search' %}" class="btn btn-light">
                     Try the live demo
                 </a>
             </div>
             <div class="col-md-5">
                 <div class="slick-about">
-                    <img src="img/blog-1.jpg" class="img-fluid rounded d-block mx-auto" alt="Work 1"/>
-                    <img src="img/blog-2.jpg" class="img-fluid rounded d-block mx-auto" alt="Work 2"/>
-                    <img src="img/blog-3.jpg" class="img-fluid rounded d-block mx-auto" alt="Work 3"/>
+                    <img src="{% static 'img/blog-1.jpg' %}" class="img-fluid rounded d-block mx-auto" alt="Work 1"/>
+                    <img src="{% static 'img/blog-2.jpg' %}" class="img-fluid rounded d-block mx-auto" alt="Work 2"/>
+                    <img src="{% static 'img/blog-3.jpg' %}" class="img-fluid rounded d-block mx-auto" alt="Work 3"/>
                 </div>
             </div>
         </div>
@@ -163,7 +163,7 @@
                                 <li>Access to premium templates</li>
                                 <li>Basic support</li>
                             </ul>
-                            <a href="#" class="btn btn-primary">
+                            <a href="{% url 'search' %}" class="btn btn-primary">
                                 Start free trial
                             </a>
                         </div>
@@ -179,7 +179,7 @@
                                 <li>Access to premium templates</li>
                                 <li>Priority support</li>
                             </ul>
-                            <a href="#" class="btn btn-info">
+                            <a href="{% url 'search' %}" class="btn btn-info">
                                 Start free trial
                             </a>
                         </div>
@@ -195,7 +195,7 @@
                                 <li>Access to premium templates</li>
                                 <li>24/7 support</li>
                             </ul>
-                            <a href="#" class="btn btn-primary">
+                            <a href="{% url 'search' %}" class="btn btn-primary">
                                 Start free trial
                             </a>
                         </div>
@@ -228,7 +228,7 @@
                 <h3>Try Knight free for 7 days</h3>
                 <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in nisi commodo,
                     tempus odio a, vestibulum nibh.</p>
-                <button class="btn btn-primary">
+                <a class="btn btn-primary" href="{% url 'search' %}">
                     Create your account
                 </button>
             </div>
@@ -278,7 +278,7 @@
         <div class="row mt-4">
             <div class="col-md-6 mx-auto text-center">
                 <h5 class="mb-4">Have questions?</h5>
-                <a href="#" class="btn btn-primary">Contact us</a>
+                <a href="{% url 'search' %}" class="btn btn-primary">Contact us</a>
             </div>
         </div>
     </div>
@@ -336,7 +336,7 @@
         </div>
         <div class="row mt-6">
             <div class="col-md-6 mx-auto text-center">
-                <a href="#" class="btn btn-primary">View all posts</a>
+                <a href="{% url 'search' %}" class="btn btn-primary">View all posts</a>
             </div>
         </div>
     </div>
