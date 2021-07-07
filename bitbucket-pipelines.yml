@@ -1,0 +1,30 @@
+image: python:3.8.10
+
+pipelines:
+  default:
+    - step:
+        name: Install requirements
+        script:
+          - rm -rf /tmp/*
+          - cd prj_ga_chartjs
+          - pip install -r requirements.txt
+
+    - step:
+        name: Archive
+        script:
+          - cd prj_ga_chartjs
+          - git archive --format=tar.gz dev2 -o back.tar.gz
+        artifacts:
+          - prj_ga_chartjs/back.tar.gz
+
+    - step:
+        name: Deploy
+        deployment: production
+        caches:
+          - pip
+        script:
+          - pipe: atlassian/heroku-deploy:0.1.1
+            variables:
+              HEROKU_API_KEY: 2eeaad31-17e3-40b3-a7f1-d3f0d319bbb8
+              HEROKU_APP_NAME: test-wagtail-ga-chartjs
+              ZIP_FILE: prj_ga_chartjs/back.tar.gz

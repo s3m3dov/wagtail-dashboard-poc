@@ -1,0 +1,1 @@
+web: gunicorn prj_ga_chartjs.wsgi --log-file - 
