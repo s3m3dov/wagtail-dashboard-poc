@@ -1,0 +1,3 @@
+python manage.py runserver - Terminal 1
+heroku run --app test-wagtail-ga-chartjs bash - Terminal 2
+Main Powershell

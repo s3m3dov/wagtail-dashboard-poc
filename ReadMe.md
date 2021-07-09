@@ -39,6 +39,14 @@ python manage.py runserver
 * username: home
 * password: djangoapp
 
+### Application Architecture & Urls ###
+> Main Ones
+* apps.analytics
+* apps.dashboard - "/dashboard"
+> Others
+* apps.home - "/"
+* apps.search - "/search"
+
 ### Who do I talk to? ###
 
 * Repo owner or admin

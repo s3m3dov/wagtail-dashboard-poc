@@ -3,9 +3,11 @@ import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from pathlib import Path
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATES_DIR = BASE_DIR / 'templates'
 
 
 # Quick-start development settings - unsuitable for production
@@ -15,9 +17,19 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    # Created
     'apps.home',
     'apps.search',
+    'apps.analytics',
+    'apps.dashboard',
 
+    # Installed
+    'modelcluster',
+    'taggit',
+    'analytical',
+    'chartjs',
+
+    # Wagtail
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -30,10 +42,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
 
-    'modelcluster',
-    'taggit',
-    'analytical',
-
+    # Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,6 +71,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(PROJECT_DIR, 'templates'),
+            TEMPLATES_DIR,
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -161,6 +171,9 @@ WAGTAIL_SITE_NAME = "prj_ga_chartjs"
 GOOGLE_ANALYTICS_PROPERTY_ID = 'G-NBNPKHHRL2'
 GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'G-NBNPKHHRL2'
 GOOGLE_ANALYTICS_JS_PROPERTY_ID = 'G-NBNPKHHRL2'
+
+GA4_ID = '201266528'
+GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 
 django_heroku.settings(locals())
 
