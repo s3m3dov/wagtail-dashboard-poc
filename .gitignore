@@ -68,3 +68,6 @@ dist/
 
 # Database
 *.sqlite3
+
+# Workspace notes
+last_commands.txt
