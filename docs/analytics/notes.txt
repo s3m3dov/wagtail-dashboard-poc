@@ -1,0 +1,8 @@
+Analytics Reporting API does not support GA4 properties, also Google Analytics Data API is in beta version
+    https://developers.google.com/analytics/devguides/reporting/data/v1/quickstart-client-libraries (For setting GA Data API)
+Note: The Data API v1 can only be used to access Google Analytics 4 properties and is not compatible with Universal Analytics. (We use GA4)
+The Google Analytics Data API v1 can also be used to > Build custom dashboards to display Google Analytics data.
+
+Found these: 
+    https://github.com/googleapis/python-analytics-data/tree/master/samples/snippets
+    https://github.com/smallmedia/django-analytics-kits

@@ -6,7 +6,8 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from apps.search import views as search_views
+from apps.search import urls as search_urls
+from apps.dashboard import urls as dashboard_urls
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
@@ -14,9 +15,10 @@ urlpatterns = [
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
 
-    path('search/', search_views.search, name='search'),
-
+    path('dashboard/', include(dashboard_urls)),
+    path('search/', include(search_urls)),
 ]
+
 
 
 if settings.DEBUG:

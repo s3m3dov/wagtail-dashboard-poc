@@ -1,0 +1,5 @@
+Found this: https://djangopackages.org/grids/g/charts/
+    Django Class Based Views to generate Ajax charts js parameters:
+        https://djangopackages.org/packages/p/django-chartjs/
+        https://github.com/peopledoc/django-chartjs
+
