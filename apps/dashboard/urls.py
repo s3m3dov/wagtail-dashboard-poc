@@ -1,7 +1,12 @@
 from django.urls import path
-from .views import line_chart, line_chart_json
+from .views import (
+    example,
+    simple_report_html,
+    simple_report_json
+)
 
 urlpatterns = [
-    path('chart', line_chart, name='line_chart'),
-    path('chartJSON', line_chart_json, name='line_chart_json'),
+    path('example', example, name='example'),
+    path('simple-report', simple_report_html, name='simple_report_html'),
+    path('simple-report-JSON', simple_report_json, name='simple_report_json'),
 ]
