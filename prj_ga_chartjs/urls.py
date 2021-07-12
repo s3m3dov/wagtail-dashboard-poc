@@ -16,7 +16,7 @@ urlpatterns = [
     path('documents/', include(wagtaildocs_urls)),
 
     #path('analytics/', include(dashboard_urls)),
-    path('dashboard/', include(dashboard_urls)),
+    path('dashboard/', include(('apps.dashboard.urls', 'dashboard'), namespace='dashboard')),
     
     path('search/', include(search_urls)),
 ]

@@ -6,10 +6,15 @@ from .models import (
 
 @admin.register(SimpleReport)
 class SimpleReportAdmin(admin.ModelAdmin):
-    def report_date(self, obj):
+    def report_create(self, obj):
         return obj.report_created.strftime("%d %b %Y")
+    
+    def report_update(self, obj):
+        return obj.report_updated.strftime("%d %b %Y, %H:%M")
         
-    report_date.admin_order_field = 'timefield'
-    report_date.short_description = 'Report Created'
+    report_create.short_description = 'Report Created'
+    report_update.short_description = 'Last Updated [GMT 0]'
+    report_update.admin_order_field = 'report_updated'
 
-    list_display = ('__str__', 'report_date', )
+
+    list_display = ('__str__', 'report_update', 'report_create')

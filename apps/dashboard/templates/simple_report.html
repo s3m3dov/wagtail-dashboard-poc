@@ -7,39 +7,22 @@
 {% endblock extra_css %}
 
 {% block content %}
-    <h1>Simple Reports</h1>
-
     <div id="container" style="width: 75%;">
-        <canvas id="simple-report" data-url="{% url 'simple_report_json' %}"></canvas>
+        <canvas id="simple-report" data-url="{{simple_report.get_json_url}}"></canvas>
     </div>
-    
+{% endblock %}
 
+{% block extra_js %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="{% static 'js/utils.js' %}"></script>
     <script>
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        function createListOfRandomColors(length) {
-            colorList = [];
-            for (var i = 0; i < length; i++) {
-                colorList.push(getRandomColor())
-            }
-            return colorList;
-        }
-
         $(function () {
-            var $populationChart = $("#simple-report");
+            var $bar_chart = $("#simple-report");
             $.ajax({
-                url: $populationChart.data("url"),
+                url: $bar_chart.data("url"),
                 success: function (data) {
-                    var ctx = $populationChart[0].getContext("2d");
+                    var ctx = $bar_chart[0].getContext("2d");
             
                     new Chart(ctx, {
                         type: 'bar',
@@ -60,13 +43,13 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Users by Country'
+                                text: data.report_type
                             },
                             scales: {
                                 yAxes: [{
                                     ticks: {
                                         beginAtZero: true,
-                                        stepSize: 5,
+                                        stepSize: 10,
                                     }
                                 }]
                             }
@@ -75,12 +58,13 @@
                 }
             });
         });
-        var $populationChart = $("#simple-report");
+
+        var $bar_chart = $("#simple-report");
         $.ajax({
-            url: $populationChart.data("url"),
+            url: $bar_chart.data("url"),
             success: function (data) {
                 // ...
             }
         })
     </script>
-{% endblock content %}
+{% endblock %}

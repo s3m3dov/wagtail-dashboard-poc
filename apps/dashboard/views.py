@@ -7,26 +7,34 @@ from apps.analytics.models import SimpleReport
 
 
 
-def simpleReport_JSONView(request):
-    labels = []
-    data = []
+def dashboard_view(request):
+    simple_reports = SimpleReport.objects.all()
+    context = {
+        'simple_reports' : simple_reports,
+    }
+    return render(request, 'dashboard.html', context)
 
-    report_data = json.loads(getattr(SimpleReport.objects.latest('report_created'), 'report_data'))
-    countries = list(report_data.keys())
-    counts = list(report_data.values())
 
-    for i in range(len(countries)):
-        labels.append(countries[i])
-        data.append(counts[i])
+def simple_report_json(request, slug=None):
+    simple_report = get_object_or_404(SimpleReport, slug=slug)
+    report_data = json.loads(simple_report.report_data)
+
+    labels = list(report_data.keys())
+    data = list(report_data.values())
 
     return JsonResponse(data={
         'labels': labels,
         'data': data,
+        'report_type': simple_report.report_type,
     })
 
-simple_report_html = TemplateView.as_view(template_name='simple_report.html')
-simple_report_json = simpleReport_JSONView
 
+def simple_report_html(request, slug=None):
+    simple_report = get_object_or_404(SimpleReport, slug=slug)
+    context = {
+        'simple_report' : simple_report
+    }
+    return render(request, 'simple_report.html', context)
 
 
 def example(request):
