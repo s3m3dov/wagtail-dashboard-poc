@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Welcome to PoC Dashboard{% endblock %}
+{% block body_class %}django-chartjs line chart demo{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+    {% for simple_report in simple_reports %}
+        <a href="{{ simple_report.get_html_url }}">{{ simple_report.report_type }}</a> 
+        <br>
+    {% endfor %}
+    <a href="{% url 'dashboard:example' %}">Bar Chart Example [Not Related to GA]</a>
+{% endblock content %}
