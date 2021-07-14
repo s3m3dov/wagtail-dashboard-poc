@@ -95,6 +95,10 @@ WSGI_APPLICATION = 'prj_ga_chartjs.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    'prod': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ciba',
+    },
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'prj_ga_chartjs',
@@ -103,9 +107,13 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     },
-    'prod': {
+    'postgres_win': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ciba',
+        'NAME': 'testdb2',
+        'USER': 'postgres',
+        'PASSWORD': 'NoLimit2023',
+        'HOST': 'localhost',
+        'PORT': '5432',
     },
     'sqlit3': {
         'ENGINE': 'django.db.backends.sqlite3',
