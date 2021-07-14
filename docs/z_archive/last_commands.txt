@@ -4,10 +4,11 @@ python manage.py runserver
 
 Terminal 2:
 celery -A prj_ga_chartjs beat -l info
-celery -A prj_ga_chartjs beat -l info --logfile=celery.beat.log --detach
+celery -A prj_ga_chartjs beat -l debug --logfile=celery.beat.log --detach
 
 heroku run --app test-wagtail-ga-chartjs bash
 
 python manage.py shell
 
 celery -A prj_ga_chartjs worker -l info
+
