@@ -196,14 +196,14 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_EAGER_PROPAGATES_EXCEPTIONS=True
 #CELERY_TIMEZONE = 'Asia/Baku'
-CELERY_BEAT_SCHEDULE = {
+"""CELERY_BEAT_SCHEDULE = {
     'fetch_reports_8h': {
         'task' : 'apps.analytics.tasks.fetch_reports_8h',
         #'task' : 'fetch_reports_8h',
         'schedule' : crontab(),
         # minute=0, hour='*/8'
     }
-}
+}"""
 
 django_heroku.settings(locals())
 
