@@ -2,6 +2,12 @@
 
 ## Python/Django Installation & Set-up ##
 
+Clone Repo
+```
+https://github.com/s3m3dov/test_prj_ad_wagtail.git
+```
+
+then
 ```
 virtualenv .env
 ```
