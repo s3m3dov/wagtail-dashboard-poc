@@ -1,12 +1,13 @@
 Terminal 1:
+source .env/bin/activate
 env\Scripts\activate
 python manage.py runserver
 
 Terminal 2:
-celery -A prj_ga_chartjs beat -l info
+celery -A prj_ga_chartjs beat -l debug
 celery -A prj_ga_chartjs beat -l debug --logfile=celery.beat.log --detach
 
-celery -A prj_ga_chartjs worker -l info
+celery -A prj_ga_chartjs worker -l debug
 celery -A prj_ga_chartjs worker -l debug --logfile=celery.worker.log --detach
 
 heroku run --app test-wagtail-ga-chartjs bash
