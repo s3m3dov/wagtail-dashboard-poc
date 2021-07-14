@@ -97,9 +97,9 @@ WSGI_APPLICATION = 'prj_ga_chartjs.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'testdb2',
-        'USER': 'postgres',
-        'PASSWORD': 'NoLimit2023',
+        'NAME': 'prj_ga_chartjs',
+        'USER': 'hikmat',
+        'PASSWORD': 'intelcorei7',
         'HOST': 'localhost',
         'PORT': '5432',
     },
@@ -196,14 +196,14 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_EAGER_PROPAGATES_EXCEPTIONS=True
 #CELERY_TIMEZONE = 'Asia/Baku'
-"""CELERY_BEAT_SCHEDULE = {
+CELERY_BEAT_SCHEDULE = {
     'fetch_reports_8h': {
         'task' : 'apps.analytics.tasks.fetch_reports_8h',
         #'task' : 'fetch_reports_8h',
         'schedule' : crontab(),
         # minute=0, hour='*/8'
     }
-}"""
+}
 
 django_heroku.settings(locals())
 
