@@ -12,10 +12,9 @@ from .models import (
 #@shared_task
 @periodic_task(run_every=crontab(minute='*/1'), name="fetch_reports_8h")
 def fetch_reports_8h():
-    report = get_object_or_404(SimpleReport, report_type='Users by Country')
-    report.save()
-    #report.save(update_fields=['report_data'])
-    return report.report_data
+    s = SimpleReport(report_data='{"some":"data"}')
+    s.save()
+
 """
 def fetch_reports_8h():
     objects = []

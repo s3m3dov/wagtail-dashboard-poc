@@ -69,4 +69,8 @@ dist/
 # Database
 *.sqlite3
 
-# Workspace notes
+# Celery
+*.bak
+*.dat
+*.dir
+*.pid
