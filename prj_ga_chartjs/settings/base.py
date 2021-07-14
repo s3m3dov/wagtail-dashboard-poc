@@ -1,5 +1,6 @@
 import dj_database_url
 import django_heroku
+from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -28,6 +29,8 @@ INSTALLED_APPS = [
     'taggit',
     'analytical',
     'chartjs',
+    'django_celery_results',
+    'django_celery_beat',
 
     # Wagtail
     'wagtail.contrib.forms',
@@ -182,6 +185,22 @@ GOOGLE_ANALYTICS_JS_PROPERTY_ID = 'G-NBNPKHHRL2'
 
 GA4_ID = '201266528'
 GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
+
+#CELERY SETTINGS
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+#CELERY_TIMEZONE = 'Azerbaijan/Baku'
+CELERY_BEAT_SCHEDULE = {
+    'fetch_reports_8h': {
+        'task' : 'apps.analytics.tasks.fetch_reports_8h',
+        #'task' : 'fetch_reports_8h',
+        'schedule' : crontab(),
+        # minute=0, hour='*/8'
+    }
+}
 
 django_heroku.settings(locals())
 
