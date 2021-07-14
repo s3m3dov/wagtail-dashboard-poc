@@ -189,10 +189,13 @@ GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 #CELERY SETTINGS
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+#CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
-#CELERY_TIMEZONE = 'Azerbaijan/Baku'
+CELERY_EAGER_PROPAGATES_EXCEPTIONS=True
+#CELERY_TIMEZONE = 'Asia/Baku'
 CELERY_BEAT_SCHEDULE = {
     'fetch_reports_8h': {
         'task' : 'apps.analytics.tasks.fetch_reports_8h',
