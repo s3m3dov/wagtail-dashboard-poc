@@ -195,7 +195,12 @@ GA4_ID = '201266528'
 GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 
 #CELERY SETTINGS
-CELERY_BROKER_URL = 'redis://localhost:6379'
+try:
+    import local_settings
+    CELERY_BROKER_URL = celery_broker_url_local
+except:
+    print("No local settings found setting without password")
+    CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 #CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
