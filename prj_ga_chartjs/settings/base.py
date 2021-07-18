@@ -196,8 +196,8 @@ GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 
 #CELERY SETTINGS
 try:
-    import local_settings
-    CELERY_BROKER_URL = celery_broker_url_local
+    from . import local_settings
+    CELERY_BROKER_URL = local_settings.celery_broker_url_local
 except:
     print("No local settings found setting without password")
     CELERY_BROKER_URL = 'redis://localhost:6379'
