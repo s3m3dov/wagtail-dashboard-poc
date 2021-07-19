@@ -198,10 +198,11 @@ GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 try:
     from . import local_settings
     CELERY_BROKER_URL = local_settings.celery_broker_url_local
+    CELERY_RESULT_BACKEND = local_settings.celery_broker_url_local
 except:
     print("No local settings found setting without password")
     CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 #CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -223,3 +224,5 @@ django_heroku.settings(locals())
 """if 'DATABASE_URL' in os.environ:
     import dj_database_url
     DATABASES = {'default': dj_database_url.config()}"""
+
+DEBUG = False
