@@ -115,7 +115,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     },
-    'sqlit3': {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -195,8 +195,14 @@ GA4_ID = '201266528'
 GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 
 #CELERY SETTINGS
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+try:
+    from . import local_settings
+    CELERY_BROKER_URL = local_settings.celery_broker_url_local
+    CELERY_RESULT_BACKEND = local_settings.celery_broker_url_local
+except:
+    print("No local settings found setting without password")
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 #CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -218,3 +224,5 @@ django_heroku.settings(locals())
 """if 'DATABASE_URL' in os.environ:
     import dj_database_url
     DATABASES = {'default': dj_database_url.config()}"""
+
+DEBUG = False
