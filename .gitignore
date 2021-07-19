@@ -75,3 +75,9 @@ celerybeat-schedule
 *.dat
 *.dir
 *.pid
+<<<<<<< HEAD
+=======
+local_settings.py
+
+staticfiles/
+>>>>>>> dev
