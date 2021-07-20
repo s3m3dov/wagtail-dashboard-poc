@@ -7,7 +7,7 @@ from apps.analytics.models import SimpleReport
 from django.utils.decorators import method_decorator
 
 
-@permission_required('user.is_superuser')
+@permission_required('user.is_superuser', "/")
 def dashboard_view(request):
     simple_reports = SimpleReport.objects.all()
     context = {
