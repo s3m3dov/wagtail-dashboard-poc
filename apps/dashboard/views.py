@@ -15,7 +15,7 @@ def dashboard_view(request):
     }
     return render(request, 'dashboard.html', context)
 
-
+@permission_required('user.is_superuser', "/")
 def simple_report_json(request, slug=None):
     simple_report = get_object_or_404(SimpleReport, slug=slug)
     report_data = json.loads(simple_report.report_data)
@@ -29,7 +29,7 @@ def simple_report_json(request, slug=None):
         'report_type': simple_report.report_type,
     })
 
-
+@permission_required('user.is_superuser', "/")
 def simple_report_html(request, slug=None):
     simple_report = get_object_or_404(SimpleReport, slug=slug)
     context = {
@@ -37,6 +37,6 @@ def simple_report_html(request, slug=None):
     }
     return render(request, 'simple_report.html', context)
 
-
+@permission_required('user.is_superuser', "/")
 def example(request):
     return render(request, 'example.html')
