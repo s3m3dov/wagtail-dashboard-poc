@@ -2,11 +2,12 @@ import json
 from django.http.response import JsonResponse
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404, render
-
+from django.contrib.auth.decorators import permission_required
 from apps.analytics.models import SimpleReport
+from django.utils.decorators import method_decorator
 
 
-
+@permission_required('user.is_superuser')
 def dashboard_view(request):
     simple_reports = SimpleReport.objects.all()
     context = {
