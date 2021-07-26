@@ -14,6 +14,7 @@ class SimpleReport(models.Model):
     USERS_BY_COUNTRY = 'Users by Country'
     PAGE_VIEWS = 'Page Views by Title'
     DEVICE_CATEGORY = 'Device Category'
+
     REPORT_TYPE_CHOICES = [
         (USERS_BY_COUNTRY, 'Users by Country'),
         (PAGE_VIEWS, 'Page Views by Title'),
@@ -25,16 +26,38 @@ class SimpleReport(models.Model):
         choices=REPORT_TYPE_CHOICES,
         default=USERS_BY_COUNTRY
     )
+
+
+    BAR_CHART = 'bar'
+    PIE_CHART = 'pie'
+    DOUGHNUT_CHART = 'doughnut'
+    LINE_CHART = 'line'
+
+    CHART_TYPE_CHOICES = [
+        (BAR_CHART, 'Bar Chart'),
+        (PIE_CHART, 'Pie Chart'),
+        (DOUGHNUT_CHART, 'Doughnut Chart'),
+        (LINE_CHART, 'Line Chart'),
+    ]
+
+    chart_type = models.CharField(
+        max_length=100,
+        choices=CHART_TYPE_CHOICES,
+        default=BAR_CHART
+    )
+    
     report_data = models.JSONField(null=True, blank=True)
     slug = models.SlugField(max_length=200, null=True, blank=True)
     report_created = models.DateTimeField(auto_now_add=True)
     report_updated = models.DateTimeField(auto_now=True)
+
 
     def save(self, *args, **kwargs):
         set_credentials()
         self.make_particular_report()
         self.slug = slugify(self.report_type)
         return super().save(*args, *kwargs)
+
 
     def make_particular_report(self):
         """

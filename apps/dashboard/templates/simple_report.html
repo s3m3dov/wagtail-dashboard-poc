@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Simple Report - Bar Chart{% endblock %}
-{% block body_class %}django-chartjs line chart demo{% endblock %}
+{% block title %}{{simple_report.report_type}} | {{simple_report.chart_type}{% endblock %}
+{% block body_class %}Just body class, haha{% endblock %}
 
 {% block extra_css %}
 {% endblock extra_css %}
@@ -18,14 +18,14 @@
     <script src="{% static 'js/utils.js' %}"></script>
     <script>
         $(function () {
-            var $bar_chart = $("#simple-report");
+            var $simple_report = $("#simple-report");
             $.ajax({
-                url: $bar_chart.data("url"),
+                url: $simple_report.data("url"),
                 success: function (data) {
-                    var ctx = $bar_chart[0].getContext("2d");
+                    var ctx = $simple_report[0].getContext("2d");
             
                     new Chart(ctx, {
-                        type: 'bar',
+                        type: '{{simple_report.chart_type}}',
                         data: {
                             labels: data.labels,
                             datasets: [{
@@ -59,9 +59,9 @@
             });
         });
 
-        var $bar_chart = $("#simple-report");
+        var $simple_report = $("#simple-report");
         $.ajax({
-            url: $bar_chart.data("url"),
+            url: $simple_report.data("url"),
             success: function (data) {
                 // ...
             }
