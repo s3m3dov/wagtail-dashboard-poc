@@ -41,7 +41,7 @@ python manage.py runserver
 
 ### Credentials for Hosted Website ###
 
-* website url: https://test-wagtail-ga-chartjs.herokuapp.com/
+* website url: http://178.128.32.114/
 * username: home
 * password: djangoapp
 
