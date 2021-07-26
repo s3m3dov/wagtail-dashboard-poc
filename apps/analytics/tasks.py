@@ -6,7 +6,7 @@ from .models import (
 )
 
 @shared_task
-def fetch_reports_8h():
+def fetch_reports_15m():
     objects = []
     reports = SimpleReport.objects.all()
 

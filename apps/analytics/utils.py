@@ -1,4 +1,5 @@
 import os
+from django.conf import settings
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import (
     DateRange, 
@@ -12,8 +13,10 @@ def set_credentials():
     """
     Sets GA credentials to the environment
     """
-    os.environ['property_id'] = "278053950"
+    os.environ['property_id'] = settings.GA4_ID
+    # os.environ['property_id'] = '278053950'
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "apps/analytics/credentials/quickstart.json"
+    
 
 
 # Functions
@@ -71,8 +74,28 @@ def page_views():
     return data
 
 
+def device_category():
+    """
+    Returns statistics of device categories
+    (Mobile, Tablet, Desktop) for 28 days.
+    """
+    data = {}
+    property_id = os.environ['property_id']
+    client = BetaAnalyticsDataClient()
 
+    request = RunReportRequest(
+        property=f"properties/{property_id}",
+        dimensions=[Dimension(name="deviceCategory")],
+        metrics=[Metric(name="activeUsers")],
+        date_ranges=[DateRange(start_date="7daysAgo", end_date="today")],
+    )
+    
+    response = client.run_report(request)
+    pass_rows_to_dict(data, response.rows)
+    return data
+ 
 
 if __name__ == "__main__":
     set_credentials()
+    print(device_category())
     print(page_views())

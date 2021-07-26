@@ -95,11 +95,12 @@ WSGI_APPLICATION = 'prj_ga_chartjs.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'production': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ciba',
     },
-    'postgres_linux': {
+    # postgres_linux
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'prj_ga_chartjs',
         'USER': 'hikmat',
@@ -115,7 +116,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     },
-    'default': {
+    'sqlite3': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -191,7 +192,7 @@ GOOGLE_ANALYTICS_PROPERTY_ID = 'G-CXJGCEDY02'
 GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'G-CXJGCEDY02'
 GOOGLE_ANALYTICS_JS_PROPERTY_ID = 'G-CXJGCEDY02'
 
-GA4_ID = '201266528'
+GA4_ID = '278053950'
 GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 
 #CELERY SETTINGS
@@ -211,11 +212,11 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_EAGER_PROPAGATES_EXCEPTIONS=True
 #CELERY_TIMEZONE = 'Asia/Baku'
 CELERY_BEAT_SCHEDULE = {
-    'fetch_reports_8h': {
-        'task' : 'apps.analytics.tasks.fetch_reports_8h',
-        #'task' : 'fetch_reports_8h',
-        'schedule' : crontab(),
-        # minute=0, hour='*/8'
+    'fetch_reports_15m': {
+        'task' : 'apps.analytics.tasks.fetch_reports_15m',
+        #'task' : 'fetch_reports_10m',
+        'schedule' : crontab(minute="*/15"),
+        # minute='*/10', hour=''
     }
 }
 
