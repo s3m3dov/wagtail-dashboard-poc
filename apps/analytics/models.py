@@ -55,7 +55,7 @@ class SimpleReport(models.Model):
     def save(self, *args, **kwargs):
         set_credentials()
         self.make_particular_report()
-        self.slug = slugify(self.report_type)
+        self.slug = '-'.join((slugify(self.report_type), slugify(self.chart_type)))
         return super().save(*args, *kwargs)
 
 
