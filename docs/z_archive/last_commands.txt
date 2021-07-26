@@ -1,9 +1,8 @@
-Terminal 1:
+Venv:
 source .env/bin/activate
 env\Scripts\activate
-python manage.py runserver
 
-Terminal 2:
+Others:
 celery -A prj_ga_chartjs beat -l debug
 celery -A prj_ga_chartjs beat -l debug --logfile=celery.beat.log --detach
 
@@ -13,3 +12,4 @@ celery -A prj_ga_chartjs worker -l debug --logfile=celery.worker.log --detach
 heroku run --app test-wagtail-ga-chartjs bash
 
 python manage.py shell
+python manage.py runserver

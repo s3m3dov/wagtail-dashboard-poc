@@ -7,14 +7,17 @@ from .utils import (
     set_credentials,
     users_by_country,
     page_views,
+    device_category,
 )
 
 class SimpleReport(models.Model):
     USERS_BY_COUNTRY = 'Users by Country'
     PAGE_VIEWS = 'Page Views by Title'
+    DEVICE_CATEGORY = 'Device Category'
     REPORT_TYPE_CHOICES = [
         (USERS_BY_COUNTRY, 'Users by Country'),
         (PAGE_VIEWS, 'Page Views by Title'),
+        (DEVICE_CATEGORY, 'Device Category'),
     ]
 
     report_type = models.CharField(
@@ -42,6 +45,8 @@ class SimpleReport(models.Model):
             self.report_data = json.dumps(users_by_country())
         elif self.report_type == self.PAGE_VIEWS:
             self.report_data = json.dumps(page_views())
+        elif self.report_type == self.DEVICE_CATEGORY:
+            self.report_data = json.dumps(device_category())
 
 
     def get_json_url(self):
