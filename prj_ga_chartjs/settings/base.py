@@ -166,6 +166,8 @@ except:
     print("No local settings found setting without password")
     CELERY_BROKER_URL = 'redis://localhost:6379'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+
 #CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -181,3 +183,6 @@ CELERY_BEAT_SCHEDULE = {
         # minute='*/10', hour=''
     }
 }
+
+from .production import *
+
