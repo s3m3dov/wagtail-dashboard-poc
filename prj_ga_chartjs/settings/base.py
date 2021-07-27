@@ -184,5 +184,4 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 
-from .production import *
 
