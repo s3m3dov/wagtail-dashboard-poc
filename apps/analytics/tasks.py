@@ -12,6 +12,5 @@ def fetch_reports_15m():
 
     for report in reports:
         report.save()
-        objects.append(report.report_type)
 
     return objects
