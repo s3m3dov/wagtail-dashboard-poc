@@ -13,15 +13,15 @@ class SimpleReport(models.Model):
     PAGE_TITLE = 'pageTitle'
     DEVICE_CATEGORY = 'deviceCategory'
 
-    REPORT_DIMENSION_CHOICES = [
+    DIMENSION_CHOICES = [
         (COUNTRY, 'Country'),
         (PAGE_TITLE, 'Page Title'),
         (DEVICE_CATEGORY, 'Device Category'),
     ]
 
-    report_dimensions = models.CharField(
+    dimensions = models.CharField(
         max_length=100,
-        choices=REPORT_DIMENSION_CHOICES,
+        choices=DIMENSION_CHOICES,
         default=COUNTRY
     )
 
@@ -29,14 +29,14 @@ class SimpleReport(models.Model):
     ACTIVE_USERS = 'activeUsers'
     SCREEN_PAGE_VIEWS = 'screenPageViews'
 
-    REPORT_METRIC_CHOICES = [
+    METRIC_CHOICES = [
         (ACTIVE_USERS, 'Active Users'),
         (SCREEN_PAGE_VIEWS, 'Scree Page Views'),
     ]
 
-    report_metrics = models.CharField(
+    metrics = models.CharField(
         max_length=100,
-        choices=REPORT_METRIC_CHOICES,
+        choices=METRIC_CHOICES,
         default=ACTIVE_USERS
     )
 
@@ -60,16 +60,16 @@ class SimpleReport(models.Model):
     )
     
 
-    report_data = models.JSONField(null=True, blank=True)
-    report_created = models.DateTimeField(auto_now_add=True)
-    report_updated = models.DateTimeField(auto_now=True)
+    data = models.JSONField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=200, null=True, blank=True)
 
 
     def save(self, *args, **kwargs):
         set_credentials()
-        self.report_data = json.dumps(run_report(self.report_dimensions, self.report_metrics))
-        self.slug = '-'.join((slugify(self.report_dimensions), 'by', slugify(self.report_metrics), slugify(self.chart_type)))
+        self.data = json.dumps(run_report(self.dimensions, self.metrics))
+        self.slug = '-'.join((slugify(self.dimensions), 'by', slugify(self.metrics), slugify(self.chart_type)))
         return super().save(*args, *kwargs)
 
 
@@ -80,4 +80,4 @@ class SimpleReport(models.Model):
         return reverse('dashboard:simple_report_html', kwargs={'slug':self.slug})
 
     def __str__(self):
-        return f'{self.report_dimensions.title()} by {self.report_metrics.title()}'
+        return f'{self.dimensions.title()} by {self.metrics.title()}'
