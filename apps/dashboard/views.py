@@ -18,7 +18,7 @@ def dashboard_view(request):
 @permission_required('user.is_superuser', "/")
 def simple_report_json(request, slug=None):
     simple_report = get_object_or_404(SimpleReport, slug=slug)
-    report_data = json.loads(simple_report.report_data)
+    report_data = json.loads(simple_report.data)
 
     labels = list(report_data.keys())
     data = list(report_data.values())
@@ -26,8 +26,8 @@ def simple_report_json(request, slug=None):
     return JsonResponse(data={
         'labels': labels,
         'data': data,
-        'report_dimensions': simple_report.report_dimensions,
-        'report_metrics': simple_report.report_metrics,
+        'report_dimensions': simple_report.dimensions,
+        'report_metrics': simple_report.metrics,
     })
 
 @permission_required('user.is_superuser', "/")

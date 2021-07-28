@@ -7,7 +7,7 @@
 
 {% block content %}
     {% for simple_report in simple_reports %}
-        <a href="{{ simple_report.get_html_url }}">{{ simple_report.report_dimensions }} by {{ simple_report.report_metrics }} | {{ simple_report.chart_type|title }} chart</a> 
+        <a href="{{ simple_report.get_html_url }}">{{ simple_report.dimensions }} by {{ simple_report.metrics }} | {{ simple_report.chart_type|title }} chart</a> 
         <br>
     {% endfor %}
     <a href="{% url 'dashboard:example' %}">Bar Chart Example [Not Related to GA]</a>
