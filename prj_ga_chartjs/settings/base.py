@@ -1,9 +1,12 @@
-import dj_database_url
-import django_heroku
+import os
+from pathlib import Path
 from celery.schedules import crontab
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from .local_settings import *
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATES_DIR = BASE_DIR / 'templates'
 
 
 # Quick-start development settings - unsuitable for production
@@ -109,13 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -146,19 +145,20 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = "prj_ga_chartjs"
-
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 # BASE_URL = 'http://example.com'
 
+
+# GA Credentials
 GOOGLE_ANALYTICS_PROPERTY_ID = 'G-CXJGCEDY02'
 GOOGLE_ANALYTICS_GTAG_PROPERTY_ID = 'G-CXJGCEDY02'
 GOOGLE_ANALYTICS_JS_PROPERTY_ID = 'G-CXJGCEDY02'
-
 GA4_ID = '278053950'
 GCP_OVERALL = "AIzaSyCc21b-t58EIpTBNrwtcTj-Xqcl9nk361s"
 
-#CELERY SETTINGS
+
+#CELERY Settings
 try:
     CELERY_BROKER_URL = celery_broker_url_local
     CELERY_RESULT_BACKEND = celery_broker_url_local
@@ -167,8 +167,6 @@ except:
     CELERY_BROKER_URL = 'redis://localhost:6379'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
-
-#CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
@@ -178,10 +176,6 @@ CELERY_EAGER_PROPAGATES_EXCEPTIONS=True
 CELERY_BEAT_SCHEDULE = {
     'fetch_reports_15m': {
         'task' : 'apps.analytics.tasks.fetch_reports_15m',
-        #'task' : 'fetch_reports_10m',
         'schedule' : crontab(minute="*/15"),
-        # minute='*/10', hour=''
     }
 }
-
-
