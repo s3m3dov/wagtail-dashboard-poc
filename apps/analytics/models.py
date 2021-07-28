@@ -5,26 +5,39 @@ from django.utils.text import slugify
 
 from .utils import (
     set_credentials,
-    users_by_country,
-    page_views,
-    device_category,
+    run_report,
 )
 
 class SimpleReport(models.Model):
-    USERS_BY_COUNTRY = 'Users by Country'
-    PAGE_VIEWS = 'Page Views by Title'
-    DEVICE_CATEGORY = 'Device Category'
+    COUNTRY = 'country'
+    PAGE_TITLE = 'pageTitle'
+    DEVICE_CATEGORY = 'deviceCategory'
 
-    REPORT_TYPE_CHOICES = [
-        (USERS_BY_COUNTRY, 'Users by Country'),
-        (PAGE_VIEWS, 'Page Views by Title'),
+    REPORT_DIMENSION_CHOICES = [
+        (COUNTRY, 'Country'),
+        (PAGE_TITLE, 'Page Title'),
         (DEVICE_CATEGORY, 'Device Category'),
     ]
 
-    report_type = models.CharField(
+    report_dimensions = models.CharField(
         max_length=100,
-        choices=REPORT_TYPE_CHOICES,
-        default=USERS_BY_COUNTRY
+        choices=REPORT_DIMENSION_CHOICES,
+        default=COUNTRY
+    )
+
+
+    ACTIVE_USERS = 'activeUsers'
+    SCREEN_PAGE_VIEWS = 'screenPageViews'
+
+    REPORT_METRIC_CHOICES = [
+        (ACTIVE_USERS, 'Active Users'),
+        (SCREEN_PAGE_VIEWS, 'Scree Page Views'),
+    ]
+
+    report_metrics = models.CharField(
+        max_length=100,
+        choices=REPORT_METRIC_CHOICES,
+        default=ACTIVE_USERS
     )
 
 
@@ -46,30 +59,18 @@ class SimpleReport(models.Model):
         default=BAR_CHART
     )
     
+
     report_data = models.JSONField(null=True, blank=True)
-    slug = models.SlugField(max_length=200, null=True, blank=True)
     report_created = models.DateTimeField(auto_now_add=True)
     report_updated = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(max_length=200, null=True, blank=True)
 
 
     def save(self, *args, **kwargs):
         set_credentials()
-        self.make_particular_report()
-        self.slug = '-'.join((slugify(self.report_type), slugify(self.chart_type)))
+        self.report_data = json.dumps(run_report(self.report_dimensions, self.report_metrics))
+        self.slug = '-'.join((slugify(self.report_dimensions), 'by', slugify(self.report_metrics), slugify(self.chart_type)))
         return super().save(*args, *kwargs)
-
-
-    def make_particular_report(self):
-        """
-        Determines report type, calls and saves data 
-        to the 'report_data' based on 'report_type'
-        """
-        if self.report_type == self.USERS_BY_COUNTRY:
-            self.report_data = json.dumps(users_by_country())
-        elif self.report_type == self.PAGE_VIEWS:
-            self.report_data = json.dumps(page_views())
-        elif self.report_type == self.DEVICE_CATEGORY:
-            self.report_data = json.dumps(device_category())
 
 
     def get_json_url(self):
@@ -79,4 +80,4 @@ class SimpleReport(models.Model):
         return reverse('dashboard:simple_report_html', kwargs={'slug':self.slug})
 
     def __str__(self):
-        return self.report_type
+        return f'{self.report_dimensions.title()} by {self.report_metrics.title()}'

@@ -13,13 +13,12 @@ def set_credentials():
     """
     Sets GA credentials to the environment
     """
-    os.environ['property_id'] = settings.GA4_ID
-    # os.environ['property_id'] = '278053950'
+    #os.environ['property_id'] = settings.GA4_ID
+    os.environ['property_id'] = '278053950'
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "apps/analytics/credentials/quickstart.json"
-    
 
 
-# Functions
+# Helper Functions
 def pass_rows_to_dict(data, rows):
     """
     Renders json rows to python dict
@@ -31,32 +30,11 @@ def pass_rows_to_dict(data, rows):
             data[row.dimension_values[0].value] = row.metric_values[0].value
 
 
-# Report Types
-def users_by_country():
+# Argument Based Reports
+def run_report(dimensionNames, metricNames, startDate="7daysAgo", endDate="today"):
     """
-    Returns user counts by their country origin as a dict 
-    by help of 'pass_rows_to_dict
-    Weekly'
-    """
-    data = {}
-    property_id = os.environ['property_id']
-    client = BetaAnalyticsDataClient()
-
-    request = RunReportRequest(
-        property=f"properties/{property_id}",
-        dimensions=[Dimension(name="country")],
-        metrics=[Metric(name="activeUsers")],
-        date_ranges=[DateRange(start_date="7daysAgo", end_date="today")],
-    )
-    
-    response = client.run_report(request)
-    pass_rows_to_dict(data, response.rows)
-    return data
-
-
-def page_views():
-    """
-    Returns statistics of visited pages
+    Runs reports by passed args, such as
+    "dimensions", "metrics
     """
     data = {}
     property_id = os.environ['property_id']
@@ -64,38 +42,24 @@ def page_views():
 
     request = RunReportRequest(
         property=f"properties/{property_id}",
-        dimensions=[Dimension(name="pageTitle")],
-        metrics=[Metric(name="screenPageViews")],
-        date_ranges=[DateRange(start_date="7daysAgo", end_date="today")],
+        dimensions=[Dimension(name=dimensionNames)],
+        metrics=[Metric(name=metricNames)],
+        date_ranges=[DateRange(start_date=startDate, end_date=endDate)],
     )
-    
+
     response = client.run_report(request)
     pass_rows_to_dict(data, response.rows)
     return data
 
 
-def device_category():
-    """
-    Returns statistics of device categories
-    (Mobile, Tablet, Desktop) for 28 days.
-    """
-    data = {}
-    property_id = os.environ['property_id']
-    client = BetaAnalyticsDataClient()
-
-    request = RunReportRequest(
-        property=f"properties/{property_id}",
-        dimensions=[Dimension(name="deviceCategory")],
-        metrics=[Metric(name="activeUsers")],
-        date_ranges=[DateRange(start_date="7daysAgo", end_date="today")],
-    )
-    
-    response = client.run_report(request)
-    pass_rows_to_dict(data, response.rows)
-    return data
- 
-
+# Main
 if __name__ == "__main__":
     set_credentials()
-    print(device_category())
-    print(page_views())
+    print(run_report("country", "activeUsers"))
+    print(run_report("pageTitle", "screenPageViews"))
+
+
+"""
+DimensionNames: country, deviceCategory, pageTitle
+MetricNames: activeUsers, screenPageViews
+"""

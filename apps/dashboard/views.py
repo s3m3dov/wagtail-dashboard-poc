@@ -26,7 +26,8 @@ def simple_report_json(request, slug=None):
     return JsonResponse(data={
         'labels': labels,
         'data': data,
-        'report_type': simple_report.report_type,
+        'report_dimensions': simple_report.report_dimensions,
+        'report_metrics': simple_report.report_metrics,
     })
 
 @permission_required('user.is_superuser', "/")
