@@ -28,6 +28,7 @@ def simple_report_json(request, slug=None):
         'data': data,
         'report_dimensions': simple_report.dimensions,
         'report_metrics': simple_report.metrics,
+        'report_date_range': simple_report.date_range,
     })
 
 @permission_required('user.is_superuser', "/")
