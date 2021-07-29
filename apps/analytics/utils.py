@@ -31,7 +31,7 @@ def pass_rows_to_dict(data, rows):
 
 
 # Argument Based Reports
-def run_report(dimensionNames, metricNames, startDate="7daysAgo", endDate="today"):
+def run_report(dimensionNames, metricNames, startDate, endDate="today"):
     """
     Runs reports by passed args, such as
     "dimensions", "metrics
@@ -55,11 +55,12 @@ def run_report(dimensionNames, metricNames, startDate="7daysAgo", endDate="today
 # Main
 if __name__ == "__main__":
     set_credentials()
-    print(run_report("country", "activeUsers"))
-    print(run_report("pageTitle", "screenPageViews"))
+    print(run_report("country", "activeUsers", "7daysAgo"))
+    print(run_report("pageTitle", "screenPageViews", "7daysAgo"))
 
 
 """
 DimensionNames: country, deviceCategory, pageTitle
 MetricNames: activeUsers, screenPageViews
+DateRanges: 7daysAgo, etc. (customs)
 """
