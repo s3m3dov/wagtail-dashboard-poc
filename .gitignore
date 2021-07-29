@@ -79,3 +79,4 @@ celerybeat-schedule
 # Django Dev
 local_settings.py
 staticfiles/
+prj_ga_chartjs/settings/local.py

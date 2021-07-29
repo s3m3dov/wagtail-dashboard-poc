@@ -8,6 +8,12 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = BASE_DIR / 'templates'
 
+#LOCAL SETTINGS WILL BE IMPORTED FROM HERE SUCH AS DATABASE and REDIS
+try:
+    from .local_settings import *
+except:
+    print("Could not able to import local_settings")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
