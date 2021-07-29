@@ -1,4 +1,5 @@
 import json
+import datetime
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -7,6 +8,7 @@ from .utils import (
     set_credentials,
     run_report,
 )
+
 
 class SimpleReport(models.Model):
     COUNTRY = 'country'
@@ -58,6 +60,26 @@ class SimpleReport(models.Model):
         choices=CHART_TYPE_CHOICES,
         default=BAR_CHART
     )
+
+    SEVEN_DAYS_AGO = "7 Days Ago"
+    ONE_MONTH_AGO = "1 Month Ago"
+    THREE_MONTHS_AGO = "3 Months Ago"
+    SIX_MONTHS_AGO = "6 Months Ago"
+    TWELWE_MONTHS_AGO = "12 Months Ago"
+
+    DATE_RANGE_CHOICES = [
+        (SEVEN_DAYS_AGO, '7 Days Ago'),
+        (ONE_MONTH_AGO, '1 Month Ago'),
+        (THREE_MONTHS_AGO, '3 Months Ago'),
+        (SIX_MONTHS_AGO, '6 Months Ago'),
+        (TWELWE_MONTHS_AGO, '12 Months Ago'),
+    ]
+
+    date_range = models.CharField(
+        max_length=100,
+        choices=DATE_RANGE_CHOICES,
+        default=SEVEN_DAYS_AGO
+    )
     
 
     data = models.JSONField(null=True, blank=True)
@@ -67,10 +89,28 @@ class SimpleReport(models.Model):
 
 
     def save(self, *args, **kwargs):
-        set_credentials()
-        self.data = json.dumps(run_report(self.dimensions, self.metrics))
-        self.slug = '-'.join((slugify(self.dimensions), 'by', slugify(self.metrics), slugify(self.chart_type)))
-        return super().save(*args, *kwargs)
+        set_credentials() # set credentials for GA
+        func_start_date = self.update_date_range() # add custom start date
+        self.data = json.dumps(run_report(self.dimensions, self.metrics, func_start_date)) # get GA DATA and save
+        self.slug = '-'.join((slugify(self.dimensions), 'by', slugify(self.metrics), slugify(self.chart_type))) # slug
+        return super().save(*args, *kwargs) # save
+
+
+    def update_date_range(self):
+        """ 
+        Adds start_date based on today's date and selected interval
+        """
+        today = datetime.date.today()
+        date_vals = self.date_range.split()
+        month_num = int(date_vals[0])
+        is_month = date_vals[1].lower().startswith("month")
+
+        if is_month:
+            return (today - datetime.timedelta(month_num * 365 / 12)).isoformat()
+        else:
+            return "7daysAgo"
+
+
 
 
     def get_json_url(self):
