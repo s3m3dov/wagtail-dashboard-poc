@@ -25,7 +25,7 @@
                     var ctx = $simple_report[0].getContext("2d");
             
                     new Chart(ctx, {
-                        type: '{{simple_report.chart_type}}',
+                        type: data.chart_type,
                         data: {
                             labels: data.labels,
                             datasets: [{
@@ -39,7 +39,7 @@
                             responsive: true,
                             legend: {
                                 position: 'top',
-                                display: false
+                                display: isItPieOrDoughnut(data.chart_type),
                             },
                             title: {
                                 display: true,
@@ -47,6 +47,7 @@
                             },
                             scales: {
                                 yAxes: [{
+                                    display: !isItPieOrDoughnut(data.chart_type),
                                     ticks: {
                                         beginAtZero: true,
                                         stepSize: 10,

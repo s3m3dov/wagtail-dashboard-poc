@@ -14,3 +14,11 @@ function createListOfRandomColors(length) {
     }
     return colorList;
 }
+
+function isItPieOrDoughnut(type) {
+    if (type === 'pie' || type === 'doughnut') {
+        return true;
+    } else {
+        return false;
+    }
+}
