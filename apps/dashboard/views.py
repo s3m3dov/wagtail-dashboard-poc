@@ -26,6 +26,7 @@ def simple_report_json(request, slug=None):
     return JsonResponse(data={
         'labels': labels,
         'data': data,
+        'chart_type' : simple_report.chart_type,
         'report_dimensions': simple_report.dimensions,
         'report_metrics': simple_report.metrics,
         'report_date_range': simple_report.date_range,
