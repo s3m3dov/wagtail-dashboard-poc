@@ -14,7 +14,10 @@
 
 {% block extra_js %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
     <script src="{% static 'js/utils.js' %}"></script>
     <script>
         $(function () {
@@ -24,8 +27,9 @@
                 success: function (data) {
                     var ctx = $simple_report[0].getContext("2d");
             
-                    new Chart(ctx, {
+                    var myChart = new Chart(ctx, {
                         type: data.chart_type,
+                        plugins: [ChartDataLabels],
                         data: {
                             labels: data.labels,
                             datasets: [{
@@ -33,6 +37,7 @@
                                 backgroundColor: createListOfRandomColors(data.labels.length),
                                 borderWidth: 3,
                                 data: data.data,
+                                
                             }]          
                         },
                         options: {
@@ -52,9 +57,34 @@
                                         beginAtZero: true,
                                         stepSize: 10,
                                     }
+                                }],
+                                xAxes: [{
+                                    display: !isItPieOrDoughnut(data.chart_type),
+
                                 }]
+                            },
+                            plugins: {
+                                datalabels: {
+                                    formatter: (val, ctx) => {
+                                        return ` ${ctx.chart.data.labels[ctx.dataIndex]} \n ${val} `;
+                                    },
+                                    display: isItPieOrDoughnut(data.chart_type),
+                                    align: 'bottom',
+                                    color: '#f6f6f6',
+                                    backgroundColor: '#222',
+                                    borderRadius: 3,
+                                    font: {
+                                        size: 18,
+                                        weight: 'normal'
+                                    },
+                                    layout: {
+                                        padding: {
+                                            right: 50
+                                        }
+                                    }
+                                },
                             }
-                        }
+                        },
                     });
                 }
             });
