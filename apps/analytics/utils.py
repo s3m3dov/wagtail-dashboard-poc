@@ -1,5 +1,6 @@
 import os
 from django.conf import settings
+from datetime import datetime
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import (
     DateRange, 
@@ -24,10 +25,23 @@ def pass_rows_to_dict(data, rows):
     Renders json rows to python dict
     """
     for row in rows:
-        if (row.metric_values[0].value).isdigit():
-            data[row.dimension_values[0].value] = int(row.metric_values[0].value)
+        metric_value = row.metric_values[0].value
+        dimension_value = row.dimension_values[0].value
+
+        if len(dimension_value) == 8:
+            dimension_value = convert_date_to_conventional(dimension_value)
+
+        if metric_value.isdigit():
+            data[dimension_value] = int(row.metric_values[0].value)
         else:
-            data[row.dimension_values[0].value] = row.metric_values[0].value
+            data[dimension_value] = row.metric_values[0].value
+
+
+def convert_date_to_conventional(old_format):
+    datetimeobject = datetime.strptime(old_format,'%Y%m%d')
+    new_format = datetimeobject.strftime('%d %B %Y')
+
+    return new_format
 
 
 # Argument Based Reports
@@ -60,7 +74,9 @@ if __name__ == "__main__":
 
 
 """
-DimensionNames: country, deviceCategory, pageTitle
-MetricNames: activeUsers, screenPageViews
+DimensionNames: country, city, browser, deviceCategory, pageTitle, 
+date, dateHour, day, dayOfWeek, month, week, year
+
+MetricNames: activeUsers, totalUsers, screenPageViews
 DateRanges: 7daysAgo, etc. (customs)
 """
