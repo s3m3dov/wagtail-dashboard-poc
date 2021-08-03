@@ -16,7 +16,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 
     <script src="{% static 'js/utils.js' %}"></script>
     <script>
@@ -37,31 +36,13 @@
                                 backgroundColor: createListOfRandomColors(data.labels.length),
                                 borderWidth: 3,
                                 data: data.data,
-                                
                             }]          
                         },
                         options: {
                             responsive: true,
-                            legend: {
-                                position: 'top',
-                                display: isItPieOrDoughnut(data.chart_type),
-                            },
                             title: {
                                 display: true,
                                 text: `${data.report_dimensions} by ${data.report_metrics} - ${data.report_date_range}`
-                            },
-                            scales: {
-                                yAxes: [{
-                                    display: !isItPieOrDoughnut(data.chart_type),
-                                    ticks: {
-                                        beginAtZero: true,
-                                        stepSize: 10,
-                                    }
-                                }],
-                                xAxes: [{
-                                    display: !isItPieOrDoughnut(data.chart_type),
-
-                                }]
                             },
                             plugins: {
                                 datalabels: {
@@ -69,19 +50,25 @@
                                         return ` ${ctx.chart.data.labels[ctx.dataIndex]} \n ${val} `;
                                     },
                                     display: isItPieOrDoughnut(data.chart_type),
-                                    align: 'bottom',
-                                    color: '#f6f6f6',
-                                    backgroundColor: '#222',
+                                    color: '#222',
                                     borderRadius: 3,
                                     font: {
                                         size: 18,
                                         weight: 'normal'
                                     },
-                                    layout: {
-                                        padding: {
-                                            right: 50
+                                },
+                                legend: {
+                                    display: isItPieOrDoughnut(data.chart_type),
+                                    position: 'top',
+                                },
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            display: !isItPieOrDoughnut(data.chart_type),
+                                            beginAtZero: true,
+                                            stepSize: 10,
                                         }
-                                    }
+                                    }],
                                 },
                             }
                         },
