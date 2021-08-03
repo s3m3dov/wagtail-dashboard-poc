@@ -3,3 +3,6 @@ Found this: https://djangopackages.org/grids/g/charts/
         https://djangopackages.org/packages/p/django-chartjs/
         https://github.com/peopledoc/django-chartjs
 
+
+Adding values to charts:
+    https://stackoverflow.com/questions/33363373/how-to-display-pie-chart-data-values-of-each-slice-in-chart-js
