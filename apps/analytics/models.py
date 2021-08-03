@@ -14,11 +14,28 @@ class SimpleReport(models.Model):
     COUNTRY = 'country'
     PAGE_TITLE = 'pageTitle'
     DEVICE_CATEGORY = 'deviceCategory'
+    DATE = 'date'
+    DATE_HOUR = 'dateHour'
+    DAY = 'day'
+    DAY_OF_WEEK = 'dayOfWeek'
+    MONTH = 'month'
+    WEEK ='week'
+    YEAR = 'year'
+
+    """
+    NTH_MONTH = 'nthMonth'
+    """
 
     DIMENSION_CHOICES = [
         (COUNTRY, 'Country'),
         (PAGE_TITLE, 'Page Title'),
-        (DEVICE_CATEGORY, 'Device Category'),
+        (DATE, 'Date'),
+        (DATE_HOUR, 'Date & Hour'),
+        (DAY, 'Day of the Month'),
+        (DAY_OF_WEEK, 'Day of the Week'),
+        (MONTH, 'Month'),
+        (WEEK, 'Week'),
+        (YEAR, 'Year'),
     ]
 
     dimensions = models.CharField(
@@ -29,10 +46,12 @@ class SimpleReport(models.Model):
 
 
     ACTIVE_USERS = 'activeUsers'
+    TOTAL_USERS = 'totalUsers'
     SCREEN_PAGE_VIEWS = 'screenPageViews'
 
     METRIC_CHOICES = [
         (ACTIVE_USERS, 'Active Users'),
+        (TOTAL_USERS, 'Total Users'),
         (SCREEN_PAGE_VIEWS, 'Scree Page Views'),
     ]
 
@@ -110,9 +129,6 @@ class SimpleReport(models.Model):
         else:
             return "7daysAgo"
 
-
-
-
     def get_json_url(self):
         return reverse('dashboard:simple_report_json', kwargs={'slug':self.slug})
 
@@ -120,4 +136,4 @@ class SimpleReport(models.Model):
         return reverse('dashboard:simple_report_html', kwargs={'slug':self.slug})
 
     def __str__(self):
-        return f'{self.dimensions.title()} by {self.metrics.title()}'
+        return f'{self.dimensions} by {self.metrics}'

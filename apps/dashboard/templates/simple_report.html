@@ -33,16 +33,25 @@
                             labels: data.labels,
                             datasets: [{
                                 label: 'Users',
-                                backgroundColor: createListOfRandomColors(data.labels.length),
-                                borderWidth: 3,
                                 data: data.data,
+                                backgroundColor: createListOfRandomColors(data.labels.length),
                             }]          
                         },
                         options: {
                             responsive: true,
-                            title: {
-                                display: true,
-                                text: `${data.report_dimensions} by ${data.report_metrics} - ${data.report_date_range}`
+                            
+                            datasets : {
+                                line: {
+                                    borderColor: getRandomColor(),
+                                    borderWidth: 2,
+                                    pointBorderWidth: 0.5,
+                                    pointRadius: 6,
+                                    pointHoverRadius: 7.5,
+                                    borderJoinStyle: 'radius',
+
+                                    tension: 0.15,
+
+                                }
                             },
                             plugins: {
                                 datalabels: {
@@ -57,6 +66,10 @@
                                         weight: 'normal'
                                     },
                                 },
+                                title: {
+                                    display: true,
+                                    text: `${data.report_dimensions} by ${data.report_metrics} - ${data.report_date_range}`
+                                },
                                 legend: {
                                     display: isItPieOrDoughnut(data.chart_type),
                                     position: 'top',
@@ -70,7 +83,7 @@
                                         }
                                     }],
                                 },
-                            }
+                            },
                         },
                     });
                 }
