@@ -47,11 +47,13 @@ class SimpleReport(models.Model):
 
     ACTIVE_USERS = 'activeUsers'
     TOTAL_USERS = 'totalUsers'
+    NEW_USERS = 'newUsers'
     SCREEN_PAGE_VIEWS = 'screenPageViews'
 
     METRIC_CHOICES = [
         (ACTIVE_USERS, 'Active Users'),
         (TOTAL_USERS, 'Total Users'),
+        (NEW_USERS, 'New Users'),
         (SCREEN_PAGE_VIEWS, 'Scree Page Views'),
     ]
 
