@@ -7,7 +7,7 @@
 {% endblock extra_css %}
 
 {% block content %}
-    <div id="container" style="width: 75%;">
+    <div id="container" style="position: relative; height:95vh; width:95vw">
         <canvas id="simple-report" data-url="{{simple_report.get_json_url}}"></canvas>
     </div>
 {% endblock %}
@@ -39,6 +39,7 @@
                         },
                         options: {
                             responsive: true,
+                            maintainAspectRatio: false,
                             
                             datasets : {
                                 line: {
@@ -54,13 +55,13 @@
                             plugins: {
                                 datalabels: {
                                     formatter: (val, ctx) => {
-                                        return ` ${ctx.chart.data.labels[ctx.dataIndex]} \n ${val} `;
+                                        return `${ctx.chart.data.labels[ctx.dataIndex]}\n${val} `;
                                     },
                                     display: isItPieOrDoughnut(data.chart_type),
                                     color: '#222',
                                     borderRadius: 3,
                                     font: {
-                                        size: 18,
+                                        size: 16.5,
                                         weight: 'normal'
                                     },
                                 },
