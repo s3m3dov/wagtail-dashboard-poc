@@ -12,8 +12,11 @@ from .utils import (
 
 class SimpleReport(models.Model):
     COUNTRY = 'country'
-    PAGE_TITLE = 'pageTitle'
+    CITY = 'city'
+    BROWSER = 'browser'
     DEVICE_CATEGORY = 'deviceCategory'
+    PAGE_TITLE = 'pageTitle'
+
     DATE = 'date'
     DATE_HOUR = 'dateHour'
     DAY = 'day'
@@ -28,7 +31,11 @@ class SimpleReport(models.Model):
 
     DIMENSION_CHOICES = [
         (COUNTRY, 'Country'),
+        (CITY, 'City'),
+        (BROWSER, 'Browser'),
+        (DEVICE_CATEGORY, 'Device Category'),
         (PAGE_TITLE, 'Page Title'),
+
         (DATE, 'Date'),
         (DATE_HOUR, 'Date & Hour'),
         (DAY, 'Day of the Month'),
