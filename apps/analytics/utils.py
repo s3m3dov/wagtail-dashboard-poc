@@ -1,4 +1,5 @@
 import os
+import collections
 from django.conf import settings
 from datetime import datetime
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
@@ -28,13 +29,17 @@ def pass_rows_to_dict(data, rows):
         metric_value = row.metric_values[0].value
         dimension_value = row.dimension_values[0].value
 
-        if len(dimension_value) == 8:
-            dimension_value = convert_date_to_conventional(dimension_value)
+        data[dimension_value] = row.metric_values[0].value
 
-        if metric_value.isdigit():
-            data[dimension_value] = int(row.metric_values[0].value)
-        else:
-            data[dimension_value] = row.metric_values[0].value
+
+def change_sort_time_data(old_data):
+    data = {}
+    for key in sorted(old_data):
+        value = old_data[key]
+        new_key = convert_date_to_conventional(key)
+        data[new_key] = value
+    
+    return data
 
 
 def convert_date_to_conventional(old_format):
@@ -63,6 +68,8 @@ def run_report(dimensionNames, metricNames, startDate, endDate="today"):
 
     response = client.run_report(request)
     pass_rows_to_dict(data, response.rows)
+    if dimensionNames == "date":
+        data = change_sort_time_data(data)
     return data
 
 
