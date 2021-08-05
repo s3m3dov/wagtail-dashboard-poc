@@ -15,7 +15,7 @@ TEMPLATES_DIR = BASE_DIR / 'templates'
 
 #set env to get password
 redis_secret = os.environ.get("redis_secret")
-celery_broker_url_local = f"redis://:{redis_secret}@127.0.0.1:6379"
+celery_broker_url_local = f"redis://:{redis_secret}@redis:6379"
 
 
 # Database

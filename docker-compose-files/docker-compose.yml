@@ -1,0 +1,28 @@
+version: "3"
+services:
+  webapp:
+    image: c4sp3rih/wagtail
+    restart: always
+    environment: 
+      - redis_secret=${redis_secret}
+    build:
+      context: ..
+      dockerfile: docker-compose-files/wagtail
+    deploy:
+      replicas: 1
+    ports:
+      - "8000:8000"
+  redis:
+    image: "redis:4-alpine"
+    command: redis-server --requirepass ${redis_secret} 
+  celery:
+    restart: always
+    build:
+      context: ..
+      dockerfile: docker-compose-files/celery
+    command:  celery -A prj_ga_chartjs.prj_ga_chartjs worker -l info
+    volumes:
+      - ../:/home/user/prj_ga_chartjs
+    depends_on:
+      - redis
+      - webapp
