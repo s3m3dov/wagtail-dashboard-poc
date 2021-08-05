@@ -46,7 +46,6 @@ USER wagtail
 
 
 RUN cp /app/docs/sample_local_settings.py /app/prj_ga_chartjs/settings/local_settings.py
-ENV redis_secret=${redis_secret}
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
 
@@ -59,4 +58,4 @@ RUN python manage.py collectstatic --noinput --clear
 #   PRACTICE. The database should be migrated manually or using the release
 #   phase facilities of your hosting platform. This is used only so the
 #   Wagtail instance can be started with a simple "docker run" command.
-CMD set -xe; python manage.py migrate --noinput; gunicorn --env DJANGO_SETTINGS_MODULE=prj_ga_chartjs.settings.production --access-logfile webapp.log --workers 1 --reload prj_ga_chartjs.wsgi:application
+CMD python manage.py migrate --noinput; gunicorn --env DJANGO_SETTINGS_MODULE=prj_ga_chartjs.settings.production --access-logfile - --workers 1 --reload prj_ga_chartjs.wsgi:application

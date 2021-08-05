@@ -1,0 +1,4 @@
+FROM python:3.9-slim-buster
+RUN groupadd user && useradd --create-home --home-dir /home/user -g user user
+WORKDIR /home/user
+RUN pip install celery==4.1.1
