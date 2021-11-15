@@ -48,7 +48,7 @@ mypy-extensions==0.4.3
 openpyxl==3.0.7
 packaging==21.0
 pi==0.1.2
-Pillow==8.3.0
+pillow>=8.3.2
 pip-check-reqs==2.0
 prompt-toolkit==3.0.19
 proto-plus==1.19.0
