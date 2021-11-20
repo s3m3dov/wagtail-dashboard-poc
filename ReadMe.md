@@ -4,7 +4,7 @@
 
 Clone Repo
 ```
-git clone https://github.com/s3m3dov/test_prj_ad_wagtail.git
+git clone https://github.com/s3m3dov/poc-ad-wagtail.git
 ```
 
 then
