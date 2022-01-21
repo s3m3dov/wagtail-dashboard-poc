@@ -74,7 +74,7 @@ typing-extensions==3.10.0.0
 typing-inspect==0.7.1
 urllib3==1.26.6
 vine==5.0.0
-wagtail==2.13.2
+wagtail==2.15.2
 wcwidth==0.2.5
 webencodings==0.5.1
 whitenoise==5.2.0
